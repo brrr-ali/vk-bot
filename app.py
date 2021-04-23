@@ -8,7 +8,7 @@ from data import db_session_cities, db_session
 from data.cities import City
 from data.users import User
 from data.games import Games
-from token_vk import TOKEN
+from token_vk import TOKEN, geocoder_apikey
 from datetime import datetime
 
 vk_session = vk_api.VkApi(token=TOKEN)
@@ -155,7 +155,7 @@ class Bot:
             return
         geocoder_api_server = "http://geocode-maps.yandex.ru/1.x/"
         geocoder_params = {
-            "apikey": "40d1649f-0493-4b70-98ba-98533de7710b",
+            "apikey": geocoder_apikey,
             "geocode": city,
             "format": "json"}
         response = requests.get(geocoder_api_server, params=geocoder_params)
@@ -167,7 +167,7 @@ class Bot:
             "featureMember"][0]["GeoObject"]
         toponym_longitude, toponym_lattitude = toponym["Point"]["pos"].split(" ")
         geocoder_params = {
-            "apikey": "40d1649f-0493-4b70-98ba-98533de7710b",
+            "apikey": geocoder_apikey,
             "geocode": ",".join([toponym_longitude, toponym_lattitude]),
             "kind": "locality",
             "format": "json"}
@@ -222,3 +222,9 @@ def main():
                     db_sess.commit()
                 users[user_id] = Bot(user_id)
             users[user_id].get_new_message(event.obj.message['text'])
+
+
+if __name__ == '__main__':
+    db_session.global_init('db/words.db')
+    db_session_cities.global_init('db/cities.db')
+    main()
