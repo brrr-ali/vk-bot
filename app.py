@@ -56,6 +56,7 @@ class Bot:
         if self.step > 3:
             self.queue_user(msg)
         if msg == 'Начать игру' and self.step == 1:
+            self.rules.clear()
             self.new_rules()
             self.start_date = datetime.now()
         elif self.step == 2 and msg != 'Нет':
