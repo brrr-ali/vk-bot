@@ -52,7 +52,8 @@ class Bot:
             self.help()
             return
         if msg == "Статистика":
-            self.send_messages('Вот ваша статистика ')
+            self.send_messages(
+                'Вот ваша статистика: https://brrrali.pythonanywhere.com/' + str(self.id_user))
             return
         if self.step > 3:
             self.queue_user(msg)
