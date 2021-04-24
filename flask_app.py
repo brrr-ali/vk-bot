@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, render_template
 from data.games import Games
 from data import db_session
@@ -20,4 +22,5 @@ def table_game(id_user):
 
 if __name__ == '__main__':
     db_session.global_init('db/words.db')
-    app.run()
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
