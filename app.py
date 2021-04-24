@@ -42,6 +42,8 @@ class Bot:
                     random_id=random.randint(0, 2 ** 64)
                 )
         finally:
+            if self.id_user in users:
+                del users[self.id_user]
             return
 
     def get_new_message(self, msg):
@@ -132,7 +134,7 @@ class Bot:
     def help(self):
         self.send_messages("Здравствуй. Это бот для игры в слова."
                            " Команды, которые ты можешь использовать при работе с ним: \n"
-                           "- Начать игру\n- Завершить игру\n- Помощь")
+                           "- Начать игру\n- Завершить игру\n- Помощь\n- Статистика")
 
     def game_over(self):
         db_sess = db_session.create_session()
