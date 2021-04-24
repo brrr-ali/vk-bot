@@ -51,6 +51,8 @@ class Bot:
         if msg == "Помощь":
             self.help()
             return
+        if msg == "Статистика":
+            self.send_messages('Вот ваша статистика ')
         if self.step > 3:
             self.queue_user(msg)
         if msg == 'Начать игру' and self.step == 1:
