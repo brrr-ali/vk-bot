@@ -27,19 +27,22 @@ class Bot:
         self.welcome()
 
     def send_messages(self, text, keyboard=None):
-        if keyboard:
-            vk.messages.send(
-                user_id=self.id_user,
-                message=text,
-                random_id=random.randint(0, 2 ** 64),
-                keyboard=keyboard.get_keyboard()
-            )
-        else:
-            vk.messages.send(
-                user_id=self.id_user,
-                message=text,
-                random_id=random.randint(0, 2 ** 64)
-            )
+        try:
+            if keyboard:
+                vk.messages.send(
+                    user_id=self.id_user,
+                    message=text,
+                    random_id=random.randint(0, 2 ** 64),
+                    keyboard=keyboard.get_keyboard()
+                )
+            else:
+                vk.messages.send(
+                    user_id=self.id_user,
+                    message=text,
+                    random_id=random.randint(0, 2 ** 64)
+                )
+        finally:
+            return
 
     def get_new_message(self, msg):
         if self.step == 2 and msg == 'Нет':
